@@ -8,4 +8,10 @@ public class Card implements Comparable<Card> {
         this.suit = suit;
         this.val = val;
     }
+
+    @Override
+    public int compareTo(Card o) {
+        return o.val.compareTo(val);
+    }
+
 }
