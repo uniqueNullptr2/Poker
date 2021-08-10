@@ -9,6 +9,11 @@ public class Card implements Comparable<Card> {
         this.val = val;
     }
 
+    public Card(Card card) {
+        this.suit = card.suit;
+        this.val = card.val;
+    }
+    
     @Override
     public int compareTo(Card o) {
         return o.val.compareTo(val);
