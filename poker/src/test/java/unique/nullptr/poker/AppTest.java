@@ -1,4 +1,4 @@
-package unique.null.poker;
+package unique.nullptr.poker;
 
 import static org.junit.Assert.assertTrue;
 
