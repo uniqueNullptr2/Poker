@@ -134,4 +134,8 @@ public class Hand implements Comparable<Hand> {
         }
     }
 
+    @Override
+    public String toString() {
+        return String.format("Hand: %s, Hightst Card: %s", getHandType().name(), getHighCard().name());
+    }
 }
