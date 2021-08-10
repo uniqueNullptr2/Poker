@@ -26,71 +26,119 @@ public class AppTest
     }
 
     @Test
-    public void highestCard() {
-        Card three = new Card(CardSuit.Spades, CardValue.Three);
-        Card six = new Card(CardSuit.Clubs, CardValue.Six);
-        Card ten = new Card(CardSuit.Hearts, CardValue.Ten);
-        Card nine = new Card(CardSuit.Clubs, CardValue.Nine);
-        Card queen = new Card(CardSuit.Diamonds, CardValue.Queen);
-        Card ace = new Card(CardSuit.Clubs, CardValue.Ace);
-        Card[] cards1 = {three, six, ten,queen, nine};
-        Card[] cards2 = {queen, ace, three, ten, nine};
-        Card[] cards3 = {three, six, ten, nine, queen};
-        Hand hand1 = new Hand(Arrays.asList(cards1));
-        Hand hand2 = new Hand(Arrays.asList(cards2));
-        Hand hand3 = new Hand(Arrays.asList(cards3));
-        assertTrue(hand1.getHighCard() == CardValue.Queen);
-        assertTrue(hand2.getHighCard() == CardValue.Ace);
-        assertTrue(hand3.getHighCard() == CardValue.Queen);
+    public void highCard() {
+        Card three = new Card(CardSuit.Clubs, CardValue.Three);
+        Card four = new Card(CardSuit.Hearts, CardValue.Four);
+        Card six = new Card(CardSuit.Diamonds, CardValue.Six);
+        Card seven = new Card(CardSuit.Spades, CardValue.Seven);
+        Card eight = new Card(CardSuit.Hearts, CardValue.Eight);
+        Card[] cardArr = {four, eight, seven, six, three};
+        Hand hand = new Hand(Arrays.asList(cardArr));
+        assertEquals(hand.getHandType(), HandType.HighCard);
+        assertEquals(hand.getHighCard(), CardValue.Eight);
     }
 
     @Test
-    public void handTypes() {
-        Card threeC = new Card(CardSuit.Clubs, CardValue.Three);
-        Card threeH = new Card(CardSuit.Hearts, CardValue.Three);
-        Card threeD = new Card(CardSuit.Diamonds, CardValue.Three);
-        Card threeS = new Card(CardSuit.Spades, CardValue.Three);
-        Card twoH = new Card(CardSuit.Hearts, CardValue.Two);
-        Card fourD = new Card(CardSuit.Diamonds, CardValue.Four);
-        Card fourH = new Card(CardSuit.Hearts, CardValue.Four);
-        Card fiveC = new Card(CardSuit.Clubs, CardValue.Five);
-        Card fiveH = new Card(CardSuit.Hearts, CardValue.Five);
-        Card sixD = new Card(CardSuit.Diamonds, CardValue.Six);
-        Card sixH = new Card(CardSuit.Hearts, CardValue.Six);
-        Card sevenH = new Card(CardSuit.Hearts, CardValue.Seven);
-        Card tenC = new Card(CardSuit.Clubs, CardValue.Ten);
-        Card nineS = new Card(CardSuit.Spades, CardValue.Nine);
-        Card queenC = new Card(CardSuit.Clubs, CardValue.Queen);
-        Card aceC = new Card(CardSuit.Clubs, CardValue.Ace);
+    public void pair() {
+        Card three1 = new Card(CardSuit.Clubs, CardValue.Three);
+        Card three2 = new Card(CardSuit.Hearts, CardValue.Three);
+        Card six = new Card(CardSuit.Diamonds, CardValue.Six);
+        Card seven = new Card(CardSuit.Spades, CardValue.Seven);
+        Card eight = new Card(CardSuit.Hearts, CardValue.Eight);
+        Card[] cardArr = {three2, eight, seven, six, three1};
+        Hand hand = new Hand(Arrays.asList(cardArr));
+        assertEquals(hand.getHandType(), HandType.Pair);
+        assertEquals(hand.getHighCard(), CardValue.Three);
+    }
 
-        Card[] highestArr = {threeC, sixD, tenC, queenC, nineS};
-        Card[] pairArr = {queenC, aceC, threeC, threeH, nineS};
-        Card[] twoPairArr = {threeC, threeH, tenC, fourD, fourH};
-        Card[] threesArr = {threeC, threeH, threeD, nineS, queenC};
-        Card[] straightArr = {threeD, fiveC, sixD, fourD, twoH};
-        Card[] flushArr = {fourH, twoH, sixH, threeH, sevenH};
-        Card[] fullHouseArr = {threeH, fourD, threeD, threeC, fourH};
-        Card[] foursArr = {threeD, twoH, threeH, threeC, threeS};
-        Card[] straightFlushArr = {threeH, fiveH, twoH, fourH, sixH};
+    @Test
+    public void twoPair() {
+        Card three1 = new Card(CardSuit.Clubs, CardValue.Three);
+        Card three2 = new Card(CardSuit.Hearts, CardValue.Three);
+        Card six1 = new Card(CardSuit.Diamonds, CardValue.Six);
+        Card six2 = new Card(CardSuit.Spades, CardValue.Six);
+        Card eight = new Card(CardSuit.Hearts, CardValue.Eight);
+        Card[] cardArr = {three2, eight, six2, six1, three1};
+        Hand hand = new Hand(Arrays.asList(cardArr));
+        assertEquals(hand.getHandType(), HandType.TwoPair);
+        assertEquals(hand.getHighCard(), CardValue.Six);
+    }
 
-        Hand highest = new Hand(Arrays.asList(highestArr));
-        Hand pair = new Hand(Arrays.asList(pairArr));
-        Hand twoPair = new Hand(Arrays.asList(twoPairArr));
-        Hand threes = new Hand(Arrays.asList(threesArr));
-        Hand straight = new Hand(Arrays.asList(straightArr));
-        Hand flush = new Hand(Arrays.asList(flushArr));
-        Hand fullHouse = new Hand(Arrays.asList(fullHouseArr));
-        Hand fours = new Hand(Arrays.asList(foursArr));
-        Hand straightFlush = new Hand(Arrays.asList(straightFlushArr));
+    @Test
+    public void threes() {
+        Card three1 = new Card(CardSuit.Clubs, CardValue.Three);
+        Card three2 = new Card(CardSuit.Hearts, CardValue.Three);
+        Card three3 = new Card(CardSuit.Diamonds, CardValue.Three);
+        Card seven = new Card(CardSuit.Spades, CardValue.Seven);
+        Card eight = new Card(CardSuit.Hearts, CardValue.Eight);
+        Card[] cardArr = {three2, eight, seven, three3, three1};
+        Hand hand = new Hand(Arrays.asList(cardArr));
+        assertEquals(hand.getHandType(), HandType.Threes);
+        assertEquals(hand.getHighCard(), CardValue.Three);
+    }
 
-        assertEquals(highest.getHandType(), HandType.HighCard);
-        assertEquals(pair.getHandType(), HandType.Pair);
-        assertEquals(twoPair.getHandType(), HandType.TwoPair);
-        assertEquals(threes.getHandType(), HandType.Threes);
-        assertEquals(straight.getHandType(), HandType.Straight);
-        assertEquals(flush.getHandType(), HandType.Flush);
-        assertEquals(fullHouse.getHandType(), HandType.FullHouse);
-        assertEquals(fours.getHandType(), HandType.Fours);
-        assertEquals(straightFlush.getHandType(), HandType.StraightFlush);
+    @Test
+    public void straight() {
+        Card three = new Card(CardSuit.Clubs, CardValue.Three);
+        Card four = new Card(CardSuit.Hearts, CardValue.Four);
+        Card six = new Card(CardSuit.Diamonds, CardValue.Six);
+        Card seven = new Card(CardSuit.Spades, CardValue.Seven);
+        Card five = new Card(CardSuit.Hearts, CardValue.Five);
+        Card[] cardArr = {four, five, seven, six, three};
+        Hand hand = new Hand(Arrays.asList(cardArr));
+        assertEquals(hand.getHandType(), HandType.Straight);
+        assertEquals(hand.getHighCard(), CardValue.Seven);
+    }
+
+    @Test
+    public void flush() {
+        Card three = new Card(CardSuit.Clubs, CardValue.Three);
+        Card four = new Card(CardSuit.Clubs, CardValue.Four);
+        Card six = new Card(CardSuit.Clubs, CardValue.Six);
+        Card seven = new Card(CardSuit.Clubs, CardValue.Seven);
+        Card eight = new Card(CardSuit.Clubs, CardValue.Eight);
+        Card[] cardArr = {four, eight, seven, six, three};
+        Hand hand = new Hand(Arrays.asList(cardArr));
+        assertEquals(hand.getHandType(), HandType.Flush);
+        assertEquals(hand.getHighCard(), CardValue.Eight);
+    }
+
+    @Test
+    public void fullHouse() {
+        Card three1 = new Card(CardSuit.Clubs, CardValue.Three);
+        Card three2 = new Card(CardSuit.Hearts, CardValue.Three);
+        Card six1 = new Card(CardSuit.Diamonds, CardValue.Six);
+        Card six2 = new Card(CardSuit.Spades, CardValue.Six);
+        Card six3 = new Card(CardSuit.Hearts, CardValue.Six);
+        Card[] cardArr = {three2, six3, six2, six1, three1};
+        Hand hand = new Hand(Arrays.asList(cardArr));
+        assertEquals(hand.getHandType(), HandType.FullHouse);
+        assertEquals(hand.getHighCard(), CardValue.Six);
+    }
+
+    @Test
+    public void fours() {
+        Card three1 = new Card(CardSuit.Clubs, CardValue.Three);
+        Card six4 = new Card(CardSuit.Clubs, CardValue.Six);
+        Card six1 = new Card(CardSuit.Diamonds, CardValue.Six);
+        Card six2 = new Card(CardSuit.Spades, CardValue.Six);
+        Card six3 = new Card(CardSuit.Hearts, CardValue.Six);
+        Card[] cardArr = {six4, six3, six2, six1, three1};
+        Hand hand = new Hand(Arrays.asList(cardArr));
+        assertEquals(hand.getHandType(), HandType.Fours);
+        assertEquals(hand.getHighCard(), CardValue.Six);
+    }
+
+    @Test
+    public void straightFlush() {
+        Card three = new Card(CardSuit.Clubs, CardValue.Three);
+        Card four = new Card(CardSuit.Clubs, CardValue.Four);
+        Card six = new Card(CardSuit.Clubs, CardValue.Six);
+        Card seven = new Card(CardSuit.Clubs, CardValue.Seven);
+        Card five = new Card(CardSuit.Clubs, CardValue.Five);
+        Card[] cardArr = {four, five, seven, six, three};
+        Hand hand = new Hand(Arrays.asList(cardArr));
+        assertEquals(hand.getHandType(), HandType.StraightFlush);
+        assertEquals(hand.getHighCard(), CardValue.Seven);
     }
 }
