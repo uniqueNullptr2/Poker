@@ -26,7 +26,7 @@ public class AppTest
     }
 
     @Test
-    public void HighestCard() {
+    public void highestCard() {
         Card three = new Card(CardSuit.Clubs, CardValue.Three);
         Card six = new Card(CardSuit.Clubs, CardValue.Six);
         Card ten = new Card(CardSuit.Clubs, CardValue.Ten);
@@ -45,7 +45,7 @@ public class AppTest
     }
 
     @Test
-    public void HandTypes() {
+    public void handTypes() {
         Card threeC = new Card(CardSuit.Clubs, CardValue.Three);
         Card threeH = new Card(CardSuit.Hearts, CardValue.Three);
         Card threeD = new Card(CardSuit.Diamonds, CardValue.Three);
