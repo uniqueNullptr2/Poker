@@ -1,7 +1,7 @@
 package unique.nullptr.poker;
 
 import static org.junit.Assert.assertTrue;
-
+import static org.junit.Assert.assertEquals;
 import java.util.Arrays;
 
 import org.junit.Test;
@@ -27,11 +27,11 @@ public class AppTest
 
     @Test
     public void highestCard() {
-        Card three = new Card(CardSuit.Clubs, CardValue.Three);
+        Card three = new Card(CardSuit.Spades, CardValue.Three);
         Card six = new Card(CardSuit.Clubs, CardValue.Six);
-        Card ten = new Card(CardSuit.Clubs, CardValue.Ten);
+        Card ten = new Card(CardSuit.Hearts, CardValue.Ten);
         Card nine = new Card(CardSuit.Clubs, CardValue.Nine);
-        Card queen = new Card(CardSuit.Clubs, CardValue.Queen);
+        Card queen = new Card(CardSuit.Diamonds, CardValue.Queen);
         Card ace = new Card(CardSuit.Clubs, CardValue.Ace);
         Card[] cards1 = {three, six, ten,queen, nine};
         Card[] cards2 = {queen, ace, three, ten, nine};
@@ -39,9 +39,9 @@ public class AppTest
         Hand hand1 = new Hand(Arrays.asList(cards1));
         Hand hand2 = new Hand(Arrays.asList(cards2));
         Hand hand3 = new Hand(Arrays.asList(cards3));
-        assertTrue(hand1.highest() == CardValue.Queen);
-        assertTrue(hand2.highest() == CardValue.Ace);
-        assertTrue(hand3.highest() == CardValue.Queen);
+        assertTrue(hand1.getHighCard() == CardValue.Queen);
+        assertTrue(hand2.getHighCard() == CardValue.Ace);
+        assertTrue(hand3.getHighCard() == CardValue.Queen);
     }
 
     @Test
@@ -83,14 +83,14 @@ public class AppTest
         Hand fours = new Hand(Arrays.asList(foursArr));
         Hand straightFlush = new Hand(Arrays.asList(straightFlushArr));
 
-        assertTrue(highest.determineType() == HandType.HighCard);
-        assertTrue(pair.determineType() == HandType.Pair);
-        assertTrue(twoPair.determineType() == HandType.TwoPair);
-        assertTrue(threes.determineType() == HandType.Threes);
-        assertTrue(straight.determineType() == HandType.Straight);
-        assertTrue(flush.determineType() == HandType.Flush);
-        assertTrue(fullHouse.determineType() == HandType.FullHouse);
-        assertTrue(fours.determineType() == HandType.Fours);
-        assertTrue(straightFlush.determineType() == HandType.StraightFlush);
+        assertEquals(highest.getHandType(), HandType.HighCard);
+        assertEquals(pair.getHandType(), HandType.Pair);
+        assertEquals(twoPair.getHandType(), HandType.TwoPair);
+        assertEquals(threes.getHandType(), HandType.Threes);
+        assertEquals(straight.getHandType(), HandType.Straight);
+        assertEquals(flush.getHandType(), HandType.Flush);
+        assertEquals(fullHouse.getHandType(), HandType.FullHouse);
+        assertEquals(fours.getHandType(), HandType.Fours);
+        assertEquals(straightFlush.getHandType(), HandType.StraightFlush);
     }
 }

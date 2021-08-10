@@ -1,10 +1,13 @@
 package unique.nullptr.poker;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class Hand implements Comparable<Hand> {
     private List<Card> cards;
+    private HandType handType = null;
+    private CardValue highCard = null;
 
     public Hand(List<Card> cards) {
         Collections.sort(cards);
@@ -22,13 +25,24 @@ public class Hand implements Comparable<Hand> {
         return hand1;
     }
 
+
+    public CardValue getHighCard() {
+        if (highCard == null)
+            determineHand();
+        return highCard;
+    }
+
+    public HandType getHandType() {
+        if (handType == null)
+            determineHand();
+        return handType;
+    }
+
     /***
      *
-     * @return The value of the highest card of this hand
+     * Sets HighCard and Handtype internally
      */
-    public CardValue highest() {
-        //TODO implement
-        return null;
+    private void determineHand() {
     }
 
     /***
@@ -42,10 +56,10 @@ public class Hand implements Comparable<Hand> {
 
     @Override
     public int compareTo(Hand o) {
-        HandType type1 = determineType();
-        HandType type2 = o.determineType();
+        HandType type1 = getHandType();
+        HandType type2 = o.getHandType();
         if (type1 == type2) {
-            return highest().compareTo(o.highest());
+            return getHighCard().compareTo(o.getHighCard());
         } else {
             return type1.compareTo(type2);
         }
