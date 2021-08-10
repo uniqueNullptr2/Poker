@@ -25,8 +25,11 @@ public class Hand implements Comparable<Hand> {
      * @return returns the winning hand or the first one in case of a tie
      */
     public static Hand pickWinner(Hand hand1, Hand hand2) {
-        //TODO implement
-        return hand1;
+        if (hand1.compareTo(hand2) < 0) {
+            return hand2;
+        } else {
+            return hand1;
+        }
     }
 
 

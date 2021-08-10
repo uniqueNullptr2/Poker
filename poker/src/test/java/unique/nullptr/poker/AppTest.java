@@ -141,4 +141,48 @@ public class AppTest
         assertEquals(hand.getHandType(), HandType.StraightFlush);
         assertEquals(hand.getHighCard(), CardValue.Seven);
     }
+
+    @Test
+    public void compareSame() {
+        Card three = new Card(CardSuit.Clubs, CardValue.Three);
+        Card four = new Card(CardSuit.Clubs, CardValue.Four);
+        Card six = new Card(CardSuit.Clubs, CardValue.Six);
+        Card seven = new Card(CardSuit.Clubs, CardValue.Seven);
+        Card five = new Card(CardSuit.Clubs, CardValue.Five);
+        Card[] cardArr = {four, five, seven, six, three};
+        // I know this isn't technically possible in game but suit doesnt matter much here
+        Hand hand1 = new Hand(Arrays.asList(cardArr));
+        Hand hand2 = new Hand(Arrays.asList(cardArr));
+        assertEquals(hand1, Hand.pickWinner(hand1, hand2));
+    }
+
+    @Test
+    public void compareSameType() {
+        Card three = new Card(CardSuit.Clubs, CardValue.Three);
+        Card four = new Card(CardSuit.Clubs, CardValue.Four);
+        Card six = new Card(CardSuit.Clubs, CardValue.Six);
+        Card seven = new Card(CardSuit.Clubs, CardValue.Seven);
+        Card five = new Card(CardSuit.Clubs, CardValue.Five);
+        Card eight = new Card(CardSuit.Clubs, CardValue.Eight);
+        Card[] cardArr1 = {four, five, seven, six, three};
+        Card[] cardArr2 = {four, five, seven, six, eight};
+        Hand hand1 = new Hand(Arrays.asList(cardArr1));
+        Hand hand2 = new Hand(Arrays.asList(cardArr2));
+        assertEquals(hand2, Hand.pickWinner(hand1, hand2));
+    }
+
+    @Test
+    public void compareDifferent() {
+        Card three = new Card(CardSuit.Clubs, CardValue.Three);
+        Card four = new Card(CardSuit.Clubs, CardValue.Four);
+        Card six = new Card(CardSuit.Clubs, CardValue.Six);
+        Card seven = new Card(CardSuit.Clubs, CardValue.Seven);
+        Card five = new Card(CardSuit.Clubs, CardValue.Five);
+        Card eight = new Card(CardSuit.Hearts, CardValue.Eight);
+        Card[] cardArr1 = {four, five, seven, six, three};
+        Card[] cardArr2 = {four, five, seven, six, eight};
+        Hand hand1 = new Hand(Arrays.asList(cardArr1));
+        Hand hand2 = new Hand(Arrays.asList(cardArr2));
+        assertEquals(hand1, Hand.pickWinner(hand1, hand2));
+    }
 }
