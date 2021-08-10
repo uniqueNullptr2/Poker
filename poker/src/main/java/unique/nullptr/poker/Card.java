@@ -19,4 +19,12 @@ public class Card implements Comparable<Card> {
         return val.compareTo(o.val);
     }
 
+    public CardValue getVal() {
+        return val;
+    }
+
+    public CardSuit getSuit() {
+        return suit;
+    }
+
 }
