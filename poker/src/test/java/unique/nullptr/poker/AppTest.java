@@ -19,10 +19,10 @@ public class AppTest
     {
         Card king = new Card(CardSuit.Clubs, CardValue.King);
         Card three = new Card(CardSuit.Hearts, CardValue.Three);
-        Card[] cards = {three, king};
+        Card[] cards = {king, three};
         Arrays.sort(cards);
-        assertTrue(cards[0] == king);
-        assertTrue(cards[1] == three);
+        assertTrue(cards[0] == three);
+        assertTrue(cards[1] == king);
     }
 
     @Test
