@@ -8,7 +8,7 @@ import java.util.List;
 public class Hand implements Comparable<Hand> {
     private List<Card> cards;
     private HandType handType = null;
-    private CardValue highCard = null;
+    private CardValue[] highCards = null;
 
     public Hand(List<Card> cards) {
         // clone list cause java has no move semantics
@@ -32,11 +32,11 @@ public class Hand implements Comparable<Hand> {
         }
     }
 
-
-    public CardValue getHighCard() {
-        if (highCard == null)
+    
+    public CardValue[] getHighCards() {
+        if (highCards == null)
             determineHand();
-        return highCard;
+        return highCards;
     }
 
     public HandType getHandType() {
@@ -69,21 +69,23 @@ public class Hand implements Comparable<Hand> {
 
         }
 
+        CardValue[] tmp = {cards.get(4).getVal(), cards.get(3).getVal(), cards.get(2).getVal(), cards.get(1).getVal(), cards.get(0).getVal()};
+        highCards = tmp;
         if (isStraight && isFlush) {
             handType = HandType.StraightFlush;
-            highCard = this.cards.get(this.cards.size()-1).getVal();
+            highCards = tmp;
         } else if (isStraight) {
             handType = HandType.Straight;
-            highCard = this.cards.get(this.cards.size()-1).getVal();
+            highCards = tmp;
         } else if (isFlush) {
             handType = HandType.Flush;
-            highCard = this.cards.get(this.cards.size()-1).getVal();
+            highCards = tmp;
         } else {
             List<int[]> counts = new ArrayList<>();
             for (int i = 0; i < counter.length; i++) {
                 if (counter[i] > 0) {
-                    int[] tmp = {i, counter[i]};
-                    counts.add(tmp);
+                    int[] t = {i, counter[i]};
+                    counts.add(t);
                 }
             }
 
@@ -100,24 +102,28 @@ public class Hand implements Comparable<Hand> {
                 }
             });
 
+            tmp = new CardValue[counts.size()];
+            for (int i = 0; i < tmp.length; i++) {
+                tmp[i] = CardValue.values()[counts.get(i)[0]];
+            }
             if (counts.get(0)[1] == 4) {
                 handType = HandType.Fours;
-                highCard = CardValue.values()[counts.get(0)[0]];
+                highCards = tmp;
             } else if (counts.get(0)[1] == 3 && counts.get(1)[1] == 2) {
                 handType = HandType.FullHouse;
-                highCard = CardValue.values()[counts.get(0)[0]];
+                highCards = tmp;
             } else if (counts.get(0)[1] == 3) {
                 handType = HandType.Threes;
-                highCard = CardValue.values()[counts.get(0)[0]];
+                highCards = tmp;
             } else if (counts.get(0)[1] == 2 && counts.get(1)[1] == 2) {
                 handType = HandType.TwoPair;
-                highCard = CardValue.values()[counts.get(0)[0]];
+                highCards = tmp;
             } else if (counts.get(0)[1] == 2) {
                 handType = HandType.Pair;
-                highCard = CardValue.values()[counts.get(0)[0]];
+                highCards = tmp;
             } else {
                 handType = HandType.HighCard;
-                highCard = CardValue.values()[counts.get(0)[0]];
+                highCards = tmp;
             }
         }
 
@@ -128,7 +134,13 @@ public class Hand implements Comparable<Hand> {
         HandType type1 = getHandType();
         HandType type2 = o.getHandType();
         if (type1 == type2) {
-            return getHighCard().compareTo(o.getHighCard());
+            CardValue[] v1 = getHighCards();
+            CardValue[] v2 = o.getHighCards();
+            for (int i = 0; i < v1.length; i++) {
+                if (v1[i] != v2[i])
+                    return v1[i].compareTo(v2[i]);
+            }
+            return 0;
         } else {
             return type1.compareTo(type2);
         }
@@ -136,6 +148,6 @@ public class Hand implements Comparable<Hand> {
 
     @Override
     public String toString() {
-        return String.format("Hand: %s, Hightst Card: %s", getHandType().name(), getHighCard().name());
+        return String.format("Hand: %s, Hightst Card: %s", getHandType().name(), getHighCards()[0].name());
     }
 }
